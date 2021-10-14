@@ -1,3 +1,4 @@
+package LCAjava;
 public class LCA {
 	
 	public Node head;
