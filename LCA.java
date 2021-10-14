@@ -1,63 +1,169 @@
-class Node
-{
-    int data;
-    Node left, right;
-  
-    Node(int item)
-    {
-        data = item;
-        left = right = null;
+public class LCA {
+	
+	public Node head;
+	
+	//Node class to represent Nodes of the binary tree with left, right and parent nodes as well as a key represented by a character
+	public class Node{  
+		private char key;
+		public Node left, right, parent;
+		private int value;
+	}
+	
+	//Creates a new binary tree with a head
+	public void createHead(char key,int value){
+		Node head = new Node();
+		head.key = key;
+		head.left = null;
+		head.right = null;
+		head.value = value;
+		this.head = head;
+	}
+	
+	public char returnKey(Node node){
+		return node.key;
+	}
+	
+	public int returnValue(Node node){
+		return node.value;
+	}
+	
+	/*An add node function thats adds a node to the tree based on its 
+	key by recursively calling a private function */
+	public void addNode(char key, int value){
+		Node newNode = new Node();
+		newNode.key = key;
+		newNode.left = null;
+		newNode.right = null;	
+		newNode.value = value;
+		addNode(newNode, head);
+	}
+	
+	private void addNode(Node newNode, Node head){
+		if(newNode.key < head.key){
+			if(head.left == null){
+				head.left = newNode;
+				newNode.parent = head;
+			}
+			else{
+				addNode(newNode, head.left);
+			}
+		}
+		else{
+			if(head.right == null){
+				head.right = newNode;
+				newNode.parent = head;
+			}
+			else{
+				addNode(newNode, head.right);
+			}
+		}
+	}
+	
+	//A function to return a node given a key
+	public Node findNode(char key){
+		if(key == head.key){
+			return head;
+		}
+		else {
+			return findNode(key, head);
+		}
+	}
+	
+	private Node findNode(char key, Node head){
+		Node ret = null;
+		if(head.left != null){
+			if (head.left.key == key){
+				return head.left;
+			}
+			else{
+				ret = findNode(key, head.left);
+				if(ret != null){
+					return ret;
+				}
+			}
+		}
+		if(head.right != null){
+			if(head.right.key == key){
+				return head.right;
+			}
+			else{
+				ret = findNode(key, head.right);
+				if(ret != null){
+					return ret;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public int depth(char key){
+		int depth = 0;
+		Node node = findNode(key);
+		while(node.parent != null){
+			depth++;
+			node = node.parent;
+		}
+		return depth;
+	}
+	
+	//An implementation of the Lowest Common Ancestor Algorithm 
+	public Node lowestCommonAncestor(Node root, Node p, Node q) {
+	    if(root==null)
+	        return null;
+	 
+	    if(root==p || root==q)
+	        return root;
+	 
+	    Node l = lowestCommonAncestor(root.left, p, q);
+	    Node r = lowestCommonAncestor(root.right, p, q);
+	 
+	    if(l!=null&&r!=null){
+	        return root;
+	    }else if(l==null&&r==null){
+	        return null;
+	    }else{
+	        return l==null?r:l;
+	    }
+	}
+	
+	public String prettyPrintKeys() {
+    	if (head == null){
+    		return "-null\n";
+    	}
+    	else if (head.left == null && head.right == null){
+    		return "-" + head.key + "\n" + " |-null\n" + "  -null\n";
+    	}
+    	return prettyPrintKeys(head,"");
     }
-}
-  
-class BinaryTree
-{
-    Node root;
-      
-    /* Function to find LCA of n1 and n2. The function assumes that both
-       n1 and n2 are present in BST */
-    Node lca(Node node, int n1, int n2)
-    {
-        if (node == null)
-            return null;
-  
-        // If both n1 and n2 are smaller than root, then LCA lies in left
-        if (node.data > n1 && node.data > n2)
-            return lca(node.left, n1, n2);
-  
-        // If both n1 and n2 are greater than root, then LCA lies in right
-        if (node.data < n1 && node.data < n2)
-            return lca(node.right, n1, n2);
-  
-        return node;
+    
+    private String prettyPrintKeys(Node x,String prefix){
+    	if (x == null){
+    		return prefix + "-null\n";
+    	}
+    	if (x.left != null){
+    		return prefix + "-" + x.key + "\n" + prettyPrintKeys(x.left, prefix + " |") + prettyPrintKeys(x.right, prefix + "  ");
+    	}
+    	else if (x.left == null){
+    		return prefix + "-" + x.key + "\n" + prefix + " |" + "-null\n" + prettyPrintKeys(x.right,prefix + "  ");
+    	}
+    	return null;
     }
-  
-    /* Driver program to test lca() */
-    public static void main(String args[])
-    {
-        // Let us construct the BST shown in the above figure
-        BinaryTree tree = new BinaryTree();
-        tree.root = new Node(20);
-        tree.root.left = new Node(8);
-        tree.root.right = new Node(22);
-        tree.root.left.left = new Node(4);
-        tree.root.left.right = new Node(12);
-        tree.root.left.right.left = new Node(10);
-        tree.root.left.right.right = new Node(14);
-  
-        int n1 = 10, n2 = 14;
-        Node t = tree.lca(tree.root, n1, n2);
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data);
-  
-        n1 = 14;
-        n2 = 8;
-        t = tree.lca(tree.root, n1, n2);
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data);
-  
-        n1 = 10;
-        n2 = 22;
-        t = tree.lca(tree.root, n1, n2);
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data);
-  
-    }
+	
+	
+
+	public String helloWorld(){
+		return "HelloWorld";
+	}
+	
+	public static void main(String[] args) {
+		LowestCommonAncestor lca = new LowestCommonAncestor();
+		lca.createHead('e',0);
+		lca.addNode('b', 1);
+		lca.addNode('f', 1);
+		lca.addNode('a', 1);
+		lca.addNode('g', 1);
+		String tree = lca.prettyPrintKeys();
+		System.out.print(tree);
+	}
+
 }
