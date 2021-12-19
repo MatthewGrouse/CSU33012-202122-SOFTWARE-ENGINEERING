@@ -13,5 +13,33 @@ img {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 </head>
 
+<body>
+    <div class="container">
+      <div class="container-fluid" class="row" class="mb-2 mt-2 col-md-12">
+        <br>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <h1 style = "text-align:center;">Github Visualiser</h1>
+          <form id="myForm" action="startSearch()">
+            <div class = "form-group">
+              Enter user query: <input type="text" class="form-control" id="search"  placeholder="username" required>
+            </div>
+           
+            <br> <!--
+            <div class = "form-group">
+              Enter access token:<input type="text" class="form-control"  id="authToken" placeholder="if applicable" name="authToken">
+            </div>
+            <br>-->
+            <div class = "form-group">
+              <button onclick="handleInput(1)" class="btn btn-danger btn-block">Search User</button>
+            </div>
+          </form>
+          <div id = "result"></div>
+          <div id = "resultF"></div>
+          <div id = "resultFF"></div>
+        </div>
+  <br><br>
+  <br><br>
+  </body>
+    <script src = "visual.js"></script>
 
 </html>
