@@ -14,3 +14,6 @@ This image shows the user info which is displayed when the query is searched. It
 
 https://github.com/MatthewGrouse/CSU33012-202122-SOFTWARE-ENGINEERING/blob/main/Screenshot_20220118-184000__01__01.jpg
 This image showcases the number if commits and lines of code(LOC) in each repository of the user. It also shows the language used in the commits and LOC 
+
+https://github.com/MatthewGrouse/CSU33012-202122-SOFTWARE-ENGINEERING/blob/main/Screenshot_20220118-184005__01.jpg
+The following image displays the frequency of commits made by the user. This can be used to see when they are active or if the make deadlines.
