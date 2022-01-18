@@ -6,7 +6,7 @@ The other part of the visualization uses JavaScript libraries to show the user c
 I wanted to focus on user commits and their used languages as we can see when they are active and which language they are proficient in.
 It also creates the perfect database to measure the performance of the user when they work on projects.
 
-Screenshot_20220118-183954__02.jpg
+https://github.com/MatthewGrouse/CSU33012-202122-SOFTWARE-ENGINEERING/blob/main/Screenshot_20220118-183954__02.jpg
 The above link showcases the search function of the API. You can enter and user name or repo name to display their GitHub information
 
 
